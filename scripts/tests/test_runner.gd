@@ -1,12 +1,9 @@
 extends RefCounted
 class_name TestRunner
 
-const VERBOSE_TESTS := true
 const TEST_PATH = "res://scripts/tests/tests"
 
-
-
-static func run_tests():
+static func run_tests(verbose: bool):
 	
 	var tests: Dictionary = {}
 	var failed := 0
@@ -19,10 +16,8 @@ static func run_tests():
 		if (filename.ends_with(".gd")):
 			var test: Object = load("%s/%s" % [TEST_PATH, filename]).new()
 			if (test is TestScript):
+				test.verbose = verbose
 				var test_name = test.test_name()
-				var test_desc = test.test_description()
-				print("RUNNING: %s" % test_name)
-				print(test_desc)
 				var test_passed = test.do_run_test()
 				tests[test_name] = test_passed
 				if (test_passed):
@@ -39,4 +34,4 @@ static func run_tests():
 			print("\tFAILED: %s" % name)
 	print("\nTALLY:")
 	print("\tPASSED: %s" % passed)
-	print("\tFAILED: %s" % failed)
+	print("\tFAILED: %s\n\n" % failed)

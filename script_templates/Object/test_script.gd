@@ -11,5 +11,5 @@ func test_description() -> String:
 	return ""
 
 # This should actually run the test
-func run_test() -> bool:
-	return false
+func run_test() -> void:
+	pass

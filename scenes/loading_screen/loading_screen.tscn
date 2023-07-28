@@ -23,10 +23,17 @@ grow_vertical = 2
 layout_mode = 2
 alignment = 1
 
-[node name="TestsButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TestsButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 disabled = true
 text = "Run Tests"
+
+[node name="VerboseCheckBox" type="CheckBox" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Verbose"
 
 [node name="ProgressBar" type="ProgressBar" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
