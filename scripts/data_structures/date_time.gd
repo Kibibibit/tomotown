@@ -48,10 +48,15 @@ var minute : int :
 	set(_minute):
 		_set_minute(_minute)
 
+## This the the amount of minute since year 0
 var since_epoch: int
 
+## Constructor
 func _init(_year: int = 0, _season: int = 0, _day:int = 0, _hour:int = 0, _minute: int = 0):
-	since_epoch = (
+	since_epoch = _calculate_epoch(_year,_season,_day,_hour,_minute)
+
+func _calculate_epoch(_year:int, _season:int, _day:int, _hour:int, _minute:int) -> int:
+	return (
 		MINUTES_PER_YEAR*_year +
 		MINUTES_PER_SEASON*_season +
 		MINUTES_PER_DAY*_day +
@@ -59,33 +64,47 @@ func _init(_year: int = 0, _season: int = 0, _day:int = 0, _hour:int = 0, _minut
 		_minute
 	)
 
+## Also a constructor kind of?
+static func from_epoch(epoch: int) -> DateTime:
+	var out := DateTime.new()
+	out.since_epoch = epoch
+	return out
+
+func add(other: DateTime) -> DateTime:
+	return DateTime.from_epoch(since_epoch+other.since_epoch)
+func subtract(other: DateTime) -> DateTime:
+	return DateTime.from_epoch(since_epoch-other.since_epoch)
 
 func _get_year() -> int:
 	return floor(since_epoch / float(MINUTES_PER_YEAR))
 
 func _set_year(_year: int) -> void:
-	return DateTime.new(_year,season,day,hour,minute)
+	since_epoch = _calculate_epoch(_year,season,day,hour,minute)
 
 func _get_season() -> int:
 	return floor(since_epoch / float(MINUTES_PER_SEASON)) % SEASONS_PER_YEAR
 
 func _set_season(_season:int) -> void:
-	return DateTime.new(year,_season,day,hour,minute)
+	Assert.in_range(_season, 0, SEASONS_PER_YEAR, "Bad Season %s" % [_season])
+	since_epoch = _calculate_epoch(year,_season,day,hour,minute)
 
 func _get_day() -> int:
 	return floor(since_epoch / float(MINUTES_PER_DAY)) % DAYS_PER_SEASON
 
 func _set_day(_day: int) -> void:
-	return DateTime.new(year,season,_day,hour,minute)
+	Assert.in_range(_day, 0, DAYS_PER_SEASON, "Bad Day %s" % [_day])
+	since_epoch = _calculate_epoch(year,season,_day,hour,minute)
 
 func _get_hour() -> int:
 	return floor(since_epoch / float(MINUTES_PER_HOUR)) % HOURS_PER_DAY
 
 func _set_hour(_hour: int) -> void:
-	return DateTime.new(year,season,day,_hour,minute)
+	Assert.in_range(_hour, 0, HOURS_PER_DAY, "Bad Hour %s" % [_hour])
+	since_epoch = _calculate_epoch(year,season,day,_hour,minute)
 
 func _get_minute() -> int:
 	return since_epoch % MINUTES_PER_HOUR
 
 func _set_minute(_minute: int) -> void:
-	return DateTime.new(year,season,day,hour,_minute)
+	Assert.in_range(_minute, 0, MINUTES_PER_HOUR, "Bad Minute %s" % [_minute])
+	since_epoch = _calculate_epoch(year,season,day,hour,_minute)
