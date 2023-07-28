@@ -1,10 +1,17 @@
 extends RefCounted
 class_name DateTime
 
+
+
 const MINUTES_PER_HOUR: int = 60
 const HOURS_PER_DAY: int = 24
 const DAYS_PER_SEASON: int = 30
 const SEASONS_PER_YEAR: int = 4
+
+const MINUTES_PER_DAY: int = HOURS_PER_DAY*MINUTES_PER_HOUR
+const MINUTES_PER_SEASON: int = DAYS_PER_SEASON*MINUTES_PER_DAY
+const MINUTES_PER_YEAR: int = SEASONS_PER_YEAR*MINUTES_PER_SEASON
+
 
 const SUMMER = 0
 const AUTUMN = 1
@@ -43,35 +50,42 @@ var minute : int :
 
 var since_epoch: int
 
-
+func _init(_year: int = 0, _season: int = 0, _day:int = 0, _hour:int = 0, _minute: int = 0):
+	since_epoch = (
+		MINUTES_PER_YEAR*_year +
+		MINUTES_PER_SEASON*_season +
+		MINUTES_PER_DAY*_day +
+		MINUTES_PER_HOUR*_hour +
+		_minute
+	)
 
 
 func _get_year() -> int:
-	return floor(since_epoch / float(MINUTES_PER_HOUR*HOURS_PER_DAY*DAYS_PER_SEASON*SEASONS_PER_YEAR))
+	return floor(since_epoch / float(MINUTES_PER_YEAR))
 
 func _set_year(_year: int) -> void:
-	pass
-	
+	return DateTime.new(_year,season,day,hour,minute)
+
 func _get_season() -> int:
-	return floor(since_epoch / float(MINUTES_PER_HOUR*HOURS_PER_DAY*DAYS_PER_SEASON)) % SEASONS_PER_YEAR
+	return floor(since_epoch / float(MINUTES_PER_SEASON)) % SEASONS_PER_YEAR
 
 func _set_season(_season:int) -> void:
-	pass
+	return DateTime.new(year,_season,day,hour,minute)
 
 func _get_day() -> int:
-	return floor(since_epoch / float(MINUTES_PER_HOUR*HOURS_PER_DAY)) % DAYS_PER_SEASON
+	return floor(since_epoch / float(MINUTES_PER_DAY)) % DAYS_PER_SEASON
 
 func _set_day(_day: int) -> void:
-	pass
+	return DateTime.new(year,season,_day,hour,minute)
 
 func _get_hour() -> int:
 	return floor(since_epoch / float(MINUTES_PER_HOUR)) % HOURS_PER_DAY
 
 func _set_hour(_hour: int) -> void:
-	pass
+	return DateTime.new(year,season,day,_hour,minute)
 
 func _get_minute() -> int:
 	return since_epoch % MINUTES_PER_HOUR
 
 func _set_minute(_minute: int) -> void:
-	pass
+	return DateTime.new(year,season,day,hour,_minute)

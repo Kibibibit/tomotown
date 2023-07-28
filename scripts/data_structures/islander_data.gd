@@ -1,14 +1,6 @@
 extends RefCounted
 class_name IslanderData
 
-
-enum Gender {
-	MASCULINE,
-	FEMININE,
-	NON_BINARY
-}
-
-
 ### Personal Details
 ## Name settings
 var first_name: String
@@ -25,9 +17,9 @@ var pronoun_objective: String # him/her/them
 var pronun_possessive: String # his/her/their
 
 # How does this islander present?
-var gender: Gender
+var gender: Enums.Gender
 # Who will this islander try to date?
-var attracted_to: Array[Gender]
+var attracted_to: Array[Enums.Gender]
 # Can this islander get pregnant
 var pregnancy_enabled: bool
 
@@ -54,8 +46,8 @@ func get_full_name(show_nickname: bool = false) -> String:
 		front =  last_name
 	return "%s %s %s" % [front, nick, back]
 
-func is_attracted_to_gender(_gender: Gender):
+func is_attracted_to_gender(_gender: Enums.Gender) -> bool:
 	return attracted_to.has(_gender)
 
-func romantically_compatible(other: IslanderData):
+func romantically_compatible(other: IslanderData) -> bool:
 	return is_attracted_to_gender(other.gender) && other.is_attracted_to_gender(gender)
