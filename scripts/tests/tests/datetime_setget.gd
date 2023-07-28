@@ -10,7 +10,8 @@ func test_description():
 
 # This should actually run the test
 func run_test():
-	for year in range(-1,1):
+	# We want to make sure negative years and positive years work
+	for year in range(-2,2):
 		var epoch_total := 0
 		var season := 0
 		var day := 0

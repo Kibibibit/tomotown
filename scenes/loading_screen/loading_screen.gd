@@ -1,5 +1,6 @@
 extends Control
 
+# This is a placeholder screen, mostly for keeping somewhere to run unit tests
 
 @onready
 var tests_button : Button = $CenterContainer/VBoxContainer/HBoxContainer/TestsButton
@@ -11,6 +12,7 @@ var play_button : Button = $CenterContainer/VBoxContainer/PlayButton
 var verbose_checkbox : CheckBox = $CenterContainer/VBoxContainer/HBoxContainer/VerboseCheckBox
 
 func _ready():
+	# We don't want to run unit tests if we're not debugging
 	if (OS.is_debug_build()):
 		tests_button.disabled = false
 	

@@ -1,7 +1,8 @@
 extends RefCounted
 class_name DateTime
 
-
+# Represents a datetime, stored as a time since epoch (year 0).
+# Dates have year, season (month), day, hour, minute
 
 const MINUTES_PER_HOUR: int = 60
 const HOURS_PER_DAY: int = 24
@@ -55,6 +56,7 @@ var since_epoch: int
 func _init(_year: int = 0, _season: int = 0, _day:int = 0, _hour:int = 0, _minute: int = 0):
 	since_epoch = _calculate_epoch(_year,_season,_day,_hour,_minute)
 
+# Calculate the time since epoch based on the times
 func _calculate_epoch(_year:int, _season:int, _day:int, _hour:int, _minute:int) -> int:
 	return (
 		MINUTES_PER_YEAR*_year +
@@ -109,5 +111,9 @@ func _set_minute(_minute: int) -> void:
 	Assert.in_range(_minute, 0, MINUTES_PER_HOUR, "Bad Minute %s" % [_minute])
 	since_epoch = _calculate_epoch(year,season,day,hour,_minute)
 
+# Calculates the amount of time unit X from the epoch.
+# mpx -> Minutes per unit X
+# xpy -> Unit X per Unit Y, where Y is one level up from X.
+#		 So for X = Hour, Y = Day or X = Season, Y = Year
 func _calculate_minutes(mpx: int, xpy: int) -> int:
 	return posmod(floori(since_epoch/float(mpx)), xpy)
