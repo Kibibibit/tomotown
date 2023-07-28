@@ -82,21 +82,21 @@ func _set_year(_year: int) -> void:
 	since_epoch = _calculate_epoch(_year,season,day,hour,minute)
 
 func _get_season() -> int:
-	return floor(since_epoch / float(MINUTES_PER_SEASON)) % SEASONS_PER_YEAR
+	return floori(since_epoch / float(MINUTES_PER_SEASON)) % SEASONS_PER_YEAR
 
 func _set_season(_season:int) -> void:
 	Assert.in_range(_season, 0, SEASONS_PER_YEAR, "Bad Season %s" % [_season])
 	since_epoch = _calculate_epoch(year,_season,day,hour,minute)
 
 func _get_day() -> int:
-	return floor(since_epoch / float(MINUTES_PER_DAY)) % DAYS_PER_SEASON
+	return floori(since_epoch / float(MINUTES_PER_DAY)) % DAYS_PER_SEASON
 
 func _set_day(_day: int) -> void:
 	Assert.in_range(_day, 0, DAYS_PER_SEASON, "Bad Day %s" % [_day])
 	since_epoch = _calculate_epoch(year,season,_day,hour,minute)
 
 func _get_hour() -> int:
-	return floor(since_epoch / float(MINUTES_PER_HOUR)) % HOURS_PER_DAY
+	return floori(since_epoch / float(MINUTES_PER_HOUR)) % HOURS_PER_DAY
 
 func _set_hour(_hour: int) -> void:
 	Assert.in_range(_hour, 0, HOURS_PER_DAY, "Bad Hour %s" % [_hour])
