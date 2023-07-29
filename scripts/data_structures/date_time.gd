@@ -18,7 +18,7 @@ const SUMMER = 1
 const AUTUMN = 2
 const WINTER = 3
 
-
+### VIRTUAL PROPERTIES (SETTERS AND GETTERS)
 var year : int :
 	get:
 		return _get_year()
@@ -49,22 +49,15 @@ var minute : int :
 	set(_minute):
 		_set_minute(_minute)
 
+
+
+### PROPERTIES
 ## This the the amount of minute since year 0
 var since_epoch: int
 
-## Constructor
+## CONSTRUCTORS/FACTORYISH METHODS
 func _init(_year: int = 0, _season: int = 0, _day:int = 0, _hour:int = 0, _minute: int = 0):
 	since_epoch = _calculate_epoch(_year,_season,_day,_hour,_minute)
-
-# Calculate the time since epoch based on the times
-func _calculate_epoch(_year:int, _season:int, _day:int, _hour:int, _minute:int) -> int:
-	return (
-		MINUTES_PER_YEAR*_year +
-		MINUTES_PER_SEASON*_season +
-		MINUTES_PER_DAY*_day +
-		MINUTES_PER_HOUR*_hour +
-		_minute
-	)
 
 ## Also a constructor kind of?
 static func from_epoch(epoch: int) -> DateTime:
@@ -87,6 +80,8 @@ static func hours(_hours:int) -> DateTime:
 static func minutes(_minutes:int) -> DateTime:
 	return DateTime.from_epoch(_minutes)
 
+
+
 func year_epoch() -> int:
 	return _unit_epoch(MINUTES_PER_YEAR)
 
@@ -98,6 +93,8 @@ func day_epoch() -> int:
 
 func hour_epoch() -> int:
 	return _unit_epoch(MINUTES_PER_HOUR)
+
+
 
 func add(other: DateTime) -> DateTime:
 	return DateTime.from_epoch(since_epoch+other.since_epoch)
@@ -135,6 +132,9 @@ func add_minutes(_minutes:int) -> DateTime:
 func subtract_minutes(_minutes:int) -> DateTime:
 	return add_minutes(-_minutes)
 
+
+
+
 func is_after(other: DateTime) -> bool:
 	return since_epoch > other.since_epoch
 
@@ -158,6 +158,21 @@ func same_hour(other:DateTime) -> bool:
 
 func same_minute(other:DateTime) -> bool:
 	return equals(other)
+
+
+
+# Calculate the time since epoch based on the times
+func _calculate_epoch(_year:int, _season:int, _day:int, _hour:int, _minute:int) -> int:
+	return (
+		MINUTES_PER_YEAR*_year +
+		MINUTES_PER_SEASON*_season +
+		MINUTES_PER_DAY*_day +
+		MINUTES_PER_HOUR*_hour +
+		_minute
+	)
+
+func _to_string() -> String:
+	return "%4d-%d-%2d@%2d:%2d" % [year, season+1, day+1, hour+1, minute+1] 
 
 func _add_units(amount:int, mpx:int)->DateTime:
 	return DateTime.from_epoch(since_epoch+(amount*mpx))

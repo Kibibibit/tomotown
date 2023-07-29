@@ -53,6 +53,13 @@ func expect_less(actual, expected, message:String = "")->bool:
 func expect_less_or_equal(actual, expected, message:String = "")->bool:
 	return run_check(actual, expected, "<=", actual >= expected, message)
 
+# Check if the given value is true
+func expect_true(actual, message:String="")->bool:
+	return run_check(actual, true, " == ", actual == true, message)
+
+# Check if the given value is false
+func expect_false(actual, message:String="")->bool:
+	return run_check(actual, false," == ", actual == false, message)
 
 # This script actually runs the test, run_test just contains the logic
 func do_run_test():
