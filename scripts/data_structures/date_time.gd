@@ -13,11 +13,11 @@ const MINUTES_PER_DAY: int = HOURS_PER_DAY*MINUTES_PER_HOUR
 const MINUTES_PER_SEASON: int = DAYS_PER_SEASON*MINUTES_PER_DAY
 const MINUTES_PER_YEAR: int = SEASONS_PER_YEAR*MINUTES_PER_SEASON
 
+const SPRING = 0
+const SUMMER = 1
+const AUTUMN = 2
+const WINTER = 3
 
-const SUMMER = 0
-const AUTUMN = 1
-const WINTER = 2
-const SPRING = 3
 
 var year : int :
 	get:
@@ -72,10 +72,98 @@ static func from_epoch(epoch: int) -> DateTime:
 	out.since_epoch = epoch
 	return out
 
+static func years(_years:int) -> DateTime:
+	return DateTime.from_epoch(_years*MINUTES_PER_YEAR)
+
+static func seasons(_seasons: int) -> DateTime:
+	return DateTime.from_epoch(_seasons*MINUTES_PER_SEASON)
+
+static func days(_days: int) -> DateTime:
+	return DateTime.from_epoch(_days*MINUTES_PER_DAY)
+
+static func hours(_hours:int) -> DateTime:
+	return DateTime.from_epoch(_hours*MINUTES_PER_HOUR)
+
+static func minutes(_minutes:int) -> DateTime:
+	return DateTime.from_epoch(_minutes)
+
+func year_epoch() -> int:
+	return _unit_epoch(MINUTES_PER_YEAR)
+
+func season_epoch() -> int:
+	return _unit_epoch(MINUTES_PER_SEASON)
+
+func day_epoch() -> int:
+	return _unit_epoch(MINUTES_PER_DAY)
+
+func hour_epoch() -> int:
+	return _unit_epoch(MINUTES_PER_HOUR)
+
 func add(other: DateTime) -> DateTime:
 	return DateTime.from_epoch(since_epoch+other.since_epoch)
+
 func subtract(other: DateTime) -> DateTime:
 	return DateTime.from_epoch(since_epoch-other.since_epoch)
+
+func add_years(_years:int) -> DateTime:
+	return _add_units(_years, MINUTES_PER_YEAR)
+	
+func subtract_years(_years:int) -> DateTime:
+	return add_years(-_years)
+
+func add_seasons(_seasons:int) -> DateTime:
+	return _add_units(_seasons, MINUTES_PER_SEASON)
+
+func subtract_seasons(_seasons:int) -> DateTime:
+	return add_seasons(-_seasons)
+
+func add_days(_days:int) -> DateTime:
+	return _add_units(_days, MINUTES_PER_DAY)
+
+func subtract_days(_days:int) -> DateTime:
+	return add_days(-_days)
+
+func add_hours(_hours:int) -> DateTime:
+	return _add_units(_hours, MINUTES_PER_HOUR)
+
+func subtract_hours(_hours:int) -> DateTime:
+	return add_hours(-_hours)
+
+func add_minutes(_minutes:int) -> DateTime:
+	return DateTime.from_epoch(since_epoch+_minutes)
+
+func subtract_minutes(_minutes:int) -> DateTime:
+	return add_minutes(-_minutes)
+
+func is_after(other: DateTime) -> bool:
+	return since_epoch > other.since_epoch
+
+func is_before(other: DateTime) -> bool:
+	return since_epoch < other.since_epoch
+
+func equals(other: DateTime) -> bool:
+	return since_epoch == other.since_epoch
+
+func same_year(other:DateTime) -> bool:
+	return year_epoch() == other.year_epoch()
+
+func same_season(other:DateTime) -> bool:
+	return season_epoch() == other.season_epoch()
+
+func same_day(other:DateTime) -> bool:
+	return day_epoch() == other.day_epoch()
+
+func same_hour(other:DateTime) -> bool:
+	return hour_epoch() == other.hour_epoch()
+
+func same_minute(other:DateTime) -> bool:
+	return equals(other)
+
+func _add_units(amount:int, mpx:int)->DateTime:
+	return DateTime.from_epoch(since_epoch+(amount*mpx))
+
+func _unit_epoch(mpx: int)->int:
+	return Maths.floor_to_n(since_epoch, mpx)
 
 func _get_year() -> int:
 	return floori(since_epoch / float(MINUTES_PER_YEAR))

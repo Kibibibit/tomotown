@@ -57,7 +57,7 @@ func expect_less_or_equal(actual, expected, message:String = "")->bool:
 # This script actually runs the test, run_test just contains the logic
 func do_run_test():
 	run_test()
-	var test_passed = ran == passed
+	var test_passed = ran == passed && ran != 0
 	var c = "%s PASSED:" % TEST_PASSED
 	if (!test_passed):
 		c = "%s FAILED:" % TEST_FAILED
@@ -65,7 +65,11 @@ func do_run_test():
 	print(test_description())
 	print("%s/%s Checks passed" % [passed,ran])
 	print(printout)
-	return ran == passed
+	if (ran != 0):
+		return ran == passed
+	else:
+		print("ERROR: No checks were ran!")
+		return false
 
 func test_name() -> String:
 	push_error("Don't use test script directly! Extend it!")
