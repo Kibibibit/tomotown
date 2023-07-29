@@ -22,7 +22,6 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	islander.eye_height = eye_height.value
-	islander.rotate_y(_delta)
 
 func _play() -> void:
 	islander.say("The quick brown fox jumps over the lazy dog")
