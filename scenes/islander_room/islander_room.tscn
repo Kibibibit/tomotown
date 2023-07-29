@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://xyvawcctfvxo"]
+[gd_scene load_steps=4 format=3 uid="uid://xyvawcctfvxo"]
 
 [ext_resource type="Script" path="res://scenes/islander_room/islander_room.gd" id="1_ltkad"]
 [ext_resource type="PackedScene" uid="uid://brcrqw121bvkg" path="res://scenes/prefabs/islander.tscn" id="2_kno76"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wj4k0"]
+size = Vector2(20, 20)
 
 [node name="Root" type="Node3D"]
 script = ExtResource("1_ltkad")
@@ -14,4 +17,25 @@ offset_bottom = 8.0
 text = "Play"
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.888321, 0.459223, 0, -0.459223, 0.888321, 0, 2.90271, 6.16243)
+transform = Transform3D(0.927895, 0.171218, -0.331203, 0, 0.888321, 0.459223, 0.372842, -0.426111, 0.824269, -4.64145, 7.78798, 9.15352)
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_wj4k0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.724966, 0.688785, 0, -0.688785, 0.724966, 0, 10.3874, 9.72499)
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 3.0
+offset_top = 38.0
+offset_right = 134.0
+offset_bottom = 69.0
+text = "Look At Camera"
+
+[node name="VSlider" type="VSlider" parent="."]
+offset_left = 3.0
+offset_top = 74.0
+offset_right = 125.0
+offset_bottom = 316.0
+max_value = 10.0
+step = 0.001

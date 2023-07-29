@@ -1,30 +1,19 @@
-extends RefCounted
+extends CreatureData
 class_name IslanderData
 
 ### Personal Details
 ## Name settings
 var first_name: String
 var last_name: String
-var nickname: String
 
 # True -> Firstname 'Nickname' Lastname
 # False -> Lastname 'Nickname' Firstname
 var first_name_then_last_name: bool 
 
-## Gender settings
-var pronoun: String # he/she/they
-var pronoun_objective: String # him/her/them
-var pronun_possessive: String # his/her/their
-
-# How does this islander present?
-var gender: Enums.Gender
 # Who will this islander try to date?
 var attracted_to: Array[Enums.Gender]
 # Can this islander get pregnant
 var pregnancy_enabled: bool
-
-## Age settings
-var birthday: DateTime
 
 ### Appearance Settings
 var skin_tone: Color
@@ -35,6 +24,7 @@ var favourite_color: Color
 
 
 # Returns the full name for this Islander
+# Overrides parent
 func get_full_name(show_nickname: bool = false) -> String:
 	var nick: String = ""
 	if (show_nickname):
@@ -51,6 +41,3 @@ func is_attracted_to_gender(_gender: Enums.Gender) -> bool:
 
 func romantically_compatible(other: IslanderData) -> bool:
 	return is_attracted_to_gender(other.gender) && other.is_attracted_to_gender(gender)
-
-func get_age(current_time: DateTime) -> int:
-	return current_time.subtract(birthday).year
