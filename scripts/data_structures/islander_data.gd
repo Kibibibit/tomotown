@@ -51,3 +51,6 @@ func is_attracted_to_gender(_gender: Enums.Gender) -> bool:
 
 func romantically_compatible(other: IslanderData) -> bool:
 	return is_attracted_to_gender(other.gender) && other.is_attracted_to_gender(gender)
+
+func get_age(current_time: DateTime) -> int:
+	return current_time.subtract(birthday).year

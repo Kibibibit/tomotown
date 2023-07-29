@@ -3,7 +3,7 @@ class_name TestRunner
 
 # Runs all of the test files in TEST_PATH
 
-const TEST_PATH = "res://scripts/tests/tests"
+static var TEST_PATH: String
 
 # Runs all tests. If verbose is true, all 
 # checks will be printed, otherwise only failed checks will be

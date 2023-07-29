@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://brcrqw121bvkg"]
+
+[ext_resource type="Script" path="res://scenes/prefabs/islander.gd" id="1_ekmb6"]
+[ext_resource type="Script" path="res://scripts/nodes/voice_gen_3d.gd" id="1_kgxs2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3qtun"]
+
+[node name="IslanderRoot" type="Node3D"]
+script = ExtResource("1_ekmb6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_3qtun")
+
+[node name="VoiceGen3D" type="Node3D" parent="."]
+script = ExtResource("1_kgxs2")
+pitch = 1.5
+pitch_range = 0.01
+speed = 0.1
+question_pitch = 0.01
+question_length = 2
