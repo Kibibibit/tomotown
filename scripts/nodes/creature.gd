@@ -11,8 +11,9 @@ var head_bone: int
 
 var _head_override: float = 0.0
 
-var eye_height: float = 2.0
+var eye_height: float = 5.0
 var look_speed: float = 10.0
+var max_neck_angle: float = PI/2.0
 
 @onready
 var mesh: Node3D = $Mesh
@@ -47,23 +48,31 @@ func unset_look_target() -> void:
 func _move_head(delta:float) -> void:
 	if (has_look_target):
 		# There has to be a better way to do this?
-		var skeleton_t = skeleton.global_transform
 		var bone_parent: Transform3D = skeleton.get_bone_global_pose(skeleton.get_bone_parent(head_bone))
-		var bone_pose: Transform3D =  skeleton_t*skeleton.get_bone_pose(head_bone).translated_local(Vector3(0,eye_height,0))
-		var rot = skeleton.get_bone_pose_rotation(head_bone)
-		skeleton.set_bone_pose_rotation(
-			head_bone, 
-			Quaternion( 
-				bone_pose.looking_at(
-					look_target, 
+		var bone_pose: Transform3D =  skeleton.get_bone_global_pose(head_bone)
+		var rot = skeleton.get_bone_pose_rotation(head_bone) # Save rotation for after we rotate
+		
+		var angle := (transform.basis.orthonormalized().get_rotation_quaternion().inverse() * Quaternion( 
+				(bone_pose*transform).looking_at(
+					look_target-Vector3(0,eye_height,0), 
 					Vector3.UP, 
 					true
 				).basis
+			))
+		# Stops them from snapping their necks
+		var neck_angle = angle.angle_to(rot)
+		if  neck_angle > max_neck_angle:
+			angle = angle.slerp(
+				rot, 
+				(neck_angle-max_neck_angle)/neck_angle
 			)
+		skeleton.set_bone_pose_rotation( #Rotate to face camera
+			head_bone, 
+			angle
 		)
-		var looking := bone_parent * skeleton.get_bone_pose(head_bone)
-		skeleton.set_bone_pose_rotation(head_bone, rot)
-		skeleton.set_bone_global_pose_override(head_bone, looking, _head_override)
+		var looking := bone_parent * skeleton.get_bone_pose(head_bone) # Get the pose we were at
+		skeleton.set_bone_pose_rotation(head_bone, rot) # Reset the location
+		skeleton.set_bone_global_pose_override(head_bone, looking, _head_override) # Now we can set it as an override
 		
 		_head_override = lerp(_head_override, 1.0, delta*look_speed)
 	else:
