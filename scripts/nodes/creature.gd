@@ -29,9 +29,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	_move_head(_delta)
 
-
 # makes this creature walk to a specific spot
-func set_move_target(location: Vector2) -> void:
+func set_move_target(_location: Vector2) -> void:
 	pass
 
 # makes this creature look at a specific point

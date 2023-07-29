@@ -15,17 +15,13 @@ var camera: Camera3D = $Camera3D
 @onready
 var eye_height: VSlider = $VSlider
 
-var i = 0.0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	play_button.button_up.connect(_play)
 	look_button.button_up.connect(_look_at_camera)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	islander.eye_height = eye_height.value
-	islander.position.x = sin(i)*5.0
-	islander.position.z = cos(i)*5.0
-	i += delta
 
 func _play() -> void:
 	islander.say("The quick brown fox jumps over the lazy dog")
