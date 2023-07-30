@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cprrc6hgonpj5"
-path="res://.godot/imported/tomotest.glb-bf8f977d9c26b65f7faf2f5f02206653.scn"
+uid="uid://qm7yavdoj747"
+path="res://.godot/imported/islander.glb-5e89fc3663c8da4aea8ae8feeb3b5b19.scn"
 
 [deps]
 
-source_file="res://assets/models/tomotest.glb"
-dest_files=["res://.godot/imported/tomotest.glb-bf8f977d9c26b65f7faf2f5f02206653.scn"]
+source_file="res://assets/models/islander.glb"
+dest_files=["res://.godot/imported/islander.glb-5e89fc3663c8da4aea8ae8feeb3b5b19.scn"]
 
 [params]
 
@@ -24,20 +24,20 @@ meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
 skins/use_named_skins=true
 animation/import=true
-animation/fps=24.0
+animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
 _subresources={
 "animations": {
 "ArmatureAction": {
-"slice_1/end_frame": 40,
+"slice_1/end_frame": 100,
 "slice_1/loop_mode": 1,
 "slice_1/name": "Idle",
 "slice_1/save_to_file/enabled": null,
 "slice_1/save_to_file/keep_custom_tracks": null,
 "slice_1/save_to_file/path": null,
-"slice_1/start_frame": 20,
+"slice_1/start_frame": 10,
 "slices/amount": 1
 }
 }

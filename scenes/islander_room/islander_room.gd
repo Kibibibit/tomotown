@@ -13,9 +13,6 @@ var islander: Islander = $IslanderRoot
 var camera: Camera3D = $Camera3D
 
 @onready
-var eye_height: VSlider = $VSlider
-
-@onready
 var look_button2: Button = $Button3
 
 @onready
@@ -31,9 +28,6 @@ func _ready() -> void:
 	look_button2.button_up.connect(_look_at_light)
 	unlook_button.button_up.connect(_unlook)
 
-func _process(_delta: float) -> void:
-	islander.eye_height = eye_height.value
-
 func _play() -> void:
 	islander.say("The quick brown fox jumps over the lazy dog")
 
@@ -44,4 +38,4 @@ func _look_at_light() -> void:
 	islander.add_look_action(light.position)
 
 func _unlook() -> void:
-	islander.force_interrupt_action()
+	islander.add_unlook_action()
