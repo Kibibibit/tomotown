@@ -4,9 +4,13 @@ class_name DateTime
 # Represents a datetime, stored as a time since epoch (year 0).
 # Dates have year, season (month), day, hour, minute
 
+## The amount of minutes in an hour
 const MINUTES_PER_HOUR: int = 60
+## The amount of hours in a day
 const HOURS_PER_DAY: int = 24
+## The amount of days in a season
 const DAYS_PER_SEASON: int = 30
+## The amount of seasons in a year
 const SEASONS_PER_YEAR: int = 4
 
 const MINUTES_PER_DAY: int = HOURS_PER_DAY*MINUTES_PER_HOUR
@@ -19,18 +23,22 @@ const AUTUMN = 2
 const WINTER = 3
 
 ### VIRTUAL PROPERTIES (SETTERS AND GETTERS)
+
+## The current year. Can go negative
 var year : int :
 	get:
 		return _get_year()
 	set(_year):
 		_set_year(_year)
 
+## The current season. Must be 0-3
 var season : int :
 	get:
 		return _get_season()
 	set(_season):
 		_set_season(_season)
 
+## The current day. Must be 0-29
 var day : int : 
 	get:
 		return _get_day()
@@ -52,7 +60,8 @@ var minute : int :
 
 
 ### PROPERTIES
-## This the the amount of minute since year 0
+
+## This the the amount of minutes since year 0
 var since_epoch: int
 
 ## CONSTRUCTORS/FACTORYISH METHODS

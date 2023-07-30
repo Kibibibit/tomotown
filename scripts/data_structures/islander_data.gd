@@ -2,24 +2,29 @@ extends CreatureData
 class_name IslanderData
 
 ### Personal Details
-## Name settings
+
+## This islander's first name
 var first_name: String
+## This islander's last name
 var last_name: String
 
-# True -> Firstname 'Nickname' Lastname
-# False -> Lastname 'Nickname' Firstname
+## Does this islander arrange their name with their first name first?
 var first_name_then_last_name: bool 
 
-# Who will this islander try to date?
+## Islanders will be attracted to genders in this array
 var attracted_to: Array[Enums.Gender]
-# Can this islander get pregnant
+## Can this islander get pregnant?
 var pregnancy_enabled: bool
 
 ### Appearance Settings
-var skin_tone: Color
-var hair_root_color: Color
-var hair_tips_color: Color
 
+## The islander's skin tone
+var skin_tone: Color
+## The color of the islander's hair roots
+var hair_root_color: Color
+## The color of the islander's hair tips
+var hair_tips_color: Color
+## The islander's favourite color
 var favourite_color: Color
 
 
