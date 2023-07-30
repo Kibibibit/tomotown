@@ -70,7 +70,8 @@ func _move_head(delta:float) -> void:
 		if (!has_look_vector):
 			head_vector = look_target
 			has_look_vector = true
-		# There has to be a better way to do this?
+		
+		# Having bone parent makes it easier to do some transforms later
 		var bone_parent: Transform3D = skeleton.get_bone_global_pose(skeleton.get_bone_parent(head_bone))
 		var bone_pose: Transform3D =  skeleton.get_bone_global_pose(head_bone)
 
