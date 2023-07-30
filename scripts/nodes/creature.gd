@@ -13,24 +13,24 @@ var animation_player: AnimationPlayer = $Mesh/AnimationPlayer
 var creature_data: CreatureData
 
 # Look vars
-# The index of their head bone
+## The index of their head bone
 var head_bone: int
-# Are they currently trying to look at something?
+## Are they currently trying to look at something?
 var is_looking: bool = false
-# Where their head is currently aiming
+## Where their head is currently aiming
 var head_vector: Vector3
-# Where they're trying to look
+## Where they're trying to look
 var look_target: Vector3
-# Whether or not their look vector should be lerped or set
+## Whether or not their look vector should be lerped or set
 var has_look_vector: bool = false
-# How fast do they look?
+## How fast do they look?
 var look_speed: float = 10.0
-# The weight of the animation vs the head override
+## The weight of the animation vs the head override
 var _head_override: float = 0.0
-# Maximum angle they can look
+## Maximum angle they can look
 var max_neck_angle: float = PI/2.0
 
-
+## The queue of actions this creature will take
 var action_queue: Array[Callable] = []
 
 
