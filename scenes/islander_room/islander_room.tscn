@@ -17,7 +17,7 @@ offset_bottom = 8.0
 text = "Play"
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.91046, 0.106482, -0.399655, -8.84388e-09, 0.966291, 0.257453, 0.413597, -0.234401, 0.879769, -0.969062, 2.12468, 3.9796)
+transform = Transform3D(0.91046, 0.106482, -0.399655, -8.84388e-09, 0.966291, 0.257453, 0.413597, -0.234401, 0.879769, -0.771572, 2.00203, 1.85647)
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_wj4k0")
